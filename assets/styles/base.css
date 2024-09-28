@@ -45,4 +45,8 @@ a {
     text-decoration: none;}
 
 pre, code {
+    background: #202020;
     font-family: "Iosevka Web", monospace;}
+
+table, td, th {
+    border: 1px solid white;}

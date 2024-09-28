@@ -15,7 +15,12 @@ e404 = environment.get_template("404.html")
 
 
 md = Markdown(
-    extensions = ["meta", "toc", "fenced_code"])
+    extensions = [
+        "meta",
+        "toc",
+        "fenced_code",
+        "sane_lists",
+        "tables"])
 md_paths = glob("./markdowns/*.md")
 
 article_links = []
