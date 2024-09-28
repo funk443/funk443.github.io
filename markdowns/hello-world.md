@@ -1,5 +1,29 @@
 Title: Hello, world
 
+[TOC]
+
+# Basic tests
+
+foo _bar_ __buzz__ `inline code`
+
+- unordered item 1
+- unordered item 2
+
+1. ordered 1
+2. ordered 2
+
+```
+(defun hello ()
+  (message "Hello, world"))
+```
+
+| Col 1 | Col 2 |
+|-------|-------|
+| a     | b     |
+| c     | d     |
+
+# Lorem ipsum Test
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Donec tempor ex felis, vel iaculis quam auctor et.  Sed ac elit at velit dictum commodo ullamcorper non quam.  Vivamus eget sapien ante.  Ut consectetur lobortis diam, nec sagittis ipsum malesuada vitae.  Maecenas id elementum metus.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.  Integer a diam urna.  Cras tincidunt magna commodo luctus auctor.  Vestibulum commodo velit sapien, et bibendum mauris fermentum id.  Sed rhoncus urna sed luctus convallis.  Ut blandit mauris turpis, eget fermentum nisl venenatis eget.
 
 Ut et fringilla diam.  Nullam ut euismod neque.  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.  Aenean egestas massa sit amet arcu rhoncus consequat.  Maecenas et tortor et libero blandit efficitur.  Morbi in nisi varius, mollis nisl ac, mollis elit.  Nunc id augue est.  Suspendisse ac neque efficitur, accumsan diam vitae, sagittis tortor.  Mauris auctor pellentesque sem, eu placerat arcu scelerisque nec.  Curabitur non dolor placerat dolor fermentum ullamcorper id id nulla.  Nullam eleifend varius sem, nec consectetur dui ultrices convallis.
