@@ -1,0 +1,6 @@
+/assets/fonts/** linguist-vendored
+*.woff2 binary
+*.ttf binary
+
+*.html linguist-generated
+/assets/templates/*.html -linguist-generated
