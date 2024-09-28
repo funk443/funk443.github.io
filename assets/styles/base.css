@@ -1,0 +1,48 @@
+@import "/assets/fonts/Iosevka.css";
+@import "/assets/fonts/IosevkaAile.css";
+
+html {
+    font-size: 120%;
+    min-height: 100vh;}
+
+body {
+    font-family: "Iosevka Aile Web", sans-serif;
+    background-color: black;
+    color: white;}
+
+header {
+    display: flex;
+    flex-flow: row wrap;}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;}
+
+header ul {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: left;
+    margin: 0;}
+
+header li {
+    list-style: none;
+    margin: 0 2rem 0 0;}
+
+#content-area {
+    display: flex;
+    flex-flow: column wrap;}
+
+main {
+    margin: 0 4%;
+    flex: 9;}
+
+footer {
+    flex: 1;}
+
+a {
+    color: #abc2ab;
+    text-decoration: none;}
+
+pre, code {
+    font-family: "Iosevka Web", monospace;}
