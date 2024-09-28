@@ -1,5 +1,6 @@
 import os
 from glob import glob
+from datetime import datetime
 
 from markdown import Markdown
 from jinja2 import Environment, FileSystemLoader
@@ -29,6 +30,10 @@ for path in md_paths:
 
     title = meta["title"][-1]
     md_name = os.path.basename(path)[:-3]
+    md_last_mtime = (
+        datetime
+        .fromtimestamp(os.path.getmtime(path))
+        .strftime("%Y-%m-%d"))
     html_path = (
         f"./articles/{md_name}.html"
         if md_name != "index"
@@ -36,6 +41,10 @@ for path in md_paths:
     html_datas = {
         "title": title,
         "content": html}
+
+    if md_name != "index":
+        html_datas["mtime"] = md_last_mtime
+
     with open(html_path, "w", encoding = "utf-8") as f:
         f.write(article.render(html_datas))
         print(f"INFO: Output {html_path}.")
