@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ title }} - ID's site</title>
+{% endblock %}
+
+{% block main %}
+<h1>{{ title }}</h1>
+{% if mtime is defined %}
+<p>Last modified: {{ mtime }}</p>
+{% endif %}
+<hr>
+{{ content }}
+{% endblock %}

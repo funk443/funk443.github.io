@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>All articles - ID's site</title>
+{% endblock %}
+
+{% block main %}
+<h1>All articles:</h1>
+<ul>
+  {% for title, link in articles %}
+  <li><a href={{ link }}>
+    {{ title }}
+  </a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
