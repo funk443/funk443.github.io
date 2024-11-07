@@ -1,80 +1,71 @@
-import os
-from glob import glob
 from datetime import datetime
+from glob import glob
+import os
 
+from jinja2 import Environment, FileSystemLoader, Template
 from markdown import Markdown
-from jinja2 import Environment, FileSystemLoader
 
-
-template_path = "./assets/templates"
-environment = Environment(loader = FileSystemLoader(template_path))
 
-article = environment.get_template("article.html")
-articles = environment.get_template("articles.html")
-e404 = environment.get_template("404.html")
-
-
-md = Markdown(
-    extensions = [
-        "meta",
-        "toc",
-        "fenced_code",
-        "sane_lists",
-        "tables"
-    ]
+this_path = os.path.dirname(os.path.abspath(__file__))
+template_path: str = os.path.join(this_path, "assets", "templates")
+environment: Environment = Environment(
+    loader=FileSystemLoader(template_path)
 )
-md_paths = glob("./markdowns/*.md")
 
-article_links = []
+article: Template = environment.get_template(name="article.html")
+articles: Template = environment.get_template(name="articles.html")
+e404: Template = environment.get_template(name="404.html")
+
+md = Markdown(
+    extensions=["meta", "toc", "fenced_code", "sane_lists", "tables"]
+)
+md_paths = glob(pathname=os.path.join(this_path, "markdowns", "*.md"))
+
+article_links: list[tuple[str, str]] = []
 for path in md_paths:
-    with open(path, "r", encoding = "utf-8") as f:
-        html = md.reset().convert(f.read())
+    with open(file=path, mode="r", encoding="utf-8") as f:
+        html: str = md.reset().convert(f.read())
 
     meta = md.Meta
     if "title" not in meta:
-        print(f"WARNING: Skipping {path}, because it does not contain title.")
+        print(
+            f"WARNING: Skipping {path}, as it doesn't have title (meta)."
+        )
         continue
 
-    title = meta["title"][-1]
-    md_name = os.path.basename(path)[:-3]
-    md_last_mtime = (
-        datetime
-        .fromtimestamp(os.path.getmtime(path))
-        .strftime("%Y-%m-%d")
-    )
-    html_path = (
-        f"./articles/{md_name}.html"
+    title: str = meta["title"][-1]
+    md_name: str = os.path.basename(path)[:-3]
+    md_last_modified_time: str = datetime.fromtimestamp(
+        os.path.getmtime(path)
+    ).strftime("%Y-%m-%d")
+
+    html_path: str = (
+        os.path.join(this_path, "articles", f"{md_name}.html")
         if md_name != "index"
-        else "./index.html"
+        else os.path.join(this_path, "index.html")
     )
-    html_datas = {
-        "title": title,
-        "content": html
-    }
+    html_datas: dict[str, str] = {"title": title, "content": html}
 
     if md_name != "index":
-        html_datas["mtime"] = md_last_mtime
+        html_datas["mtime"] = md_last_modified_time
 
-    with open(html_path, "w", encoding = "utf-8") as f:
+    with open(file=html_path, mode="w", encoding="utf-8") as f:
         f.write(article.render(html_datas))
-        print(f"INFO: Output {html_path}.")
+        print(f"INFO: Wrote {html_path}.")
 
     if md_name == "index":
         continue
 
-    article_links.append((title, html_path[1:]))
+    article_link: str = f"/articles/{md_name}.html"
+    article_links.append((title, article_link))
 
-
-articles_path = "./articles.html"
-articles_data = {
-    "articles": article_links
-}
-with open(articles_path, "w", encoding = "utf-8") as f:
+articles_path: str = os.path.join(this_path, "articles.html")
+articles_data: dict[str, str] = {"articles": article_links}
+with open(file=articles_path, mode="w", encoding="utf-8") as f:
     f.write(articles.render(articles_data))
-    print(f"INFO: Output {articles_path}.")
+    print(f"INFO: Wrote {articles_path}.")
 
-
-e404_path = "./404.html"
-with open(e404_path, "w", encoding = "utf-8") as f:
+e404_path: str = os.path.join(this_path, "404.html")
+with open(file=e404_path, mode="w", encoding="utf-8") as f:
     f.write(e404.render())
-    print(f"INFO: Output {e404_path}.")
+    print(f"INFO: Wrote {e404_path}.")
