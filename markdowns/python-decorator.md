@@ -69,7 +69,7 @@ def foo():
 foo = make_deco(x, y)(foo)
 ```
 
-So the `make_deco(x, y)` basically returns a function, `deco(func)`, then this just becomes the using a decorator that does not take arguments.
+So the `make_deco(x, y)` basically returns a function, `deco(func)`, then this just becomes using a decorator that does not take arguments.
 
 For multiple decorator applied, it's like this:
 
@@ -91,4 +91,4 @@ def foo():
 foo = deco2(deco1(foo))
 ```
 
-[This explanation](https://peps.python.org/pep-0318/#current-syntax) is, in my opinion, the best one explaning how decorators work.  It just transforms intuitive decorator syntax, which is not very intuitive, to very simple function calls.
+[This explanation](https://peps.python.org/pep-0318/#current-syntax) is, in my opinion, the best one explaning how decorators work.  It just transforms the decorator syntax, which is not very intuitive, to very simple function calls.
