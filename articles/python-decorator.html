@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/assets/styles/base.css" />
+    <link rel="icon" href="data:," />
+    
+<title>The clearest explaination to Python decorators I've ever seen - ID's site</title>
+
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">
+        ID's site
+      </a></h1>
+      <ul>
+        <li><a href="/articles.html">
+          Articles
+        </a></li>
+      </ul>
+    </header>
+    <hr>
+    <div id="content-area">
+      <main>
+        
+<h1>The clearest explaination to Python decorators I've ever seen</h1>
+
+<p>Last modified: 2024-11-07</p>
+
+<hr>
+<div class="toc">
+<ul></ul>
+</div>
+<p>So I was writing my Discord bot last night, and I was confused by something.  After some research, I not only solved the problem, but also found the best explaination about Python decorator I've ever seen.</p>
+<p>Here is it, let's say we have a decorator like this:</p>
+<pre><code class="language-python">def deco(func):
+    def wrap():
+        # Do things with func
+        pass
+
+    return wrap
+</code></pre>
+<p>And a form like this:</p>
+<pre><code class="language-python">@deco
+def foo():
+    # Do things
+    pass
+</code></pre>
+<p>The above form is equivalant to this following form:</p>
+<pre><code class="language-python">def foo():
+    # Do things
+    pass
+
+foo = deco(foo)
+</code></pre>
+<p>For decorators with arguments:</p>
+<pre><code class="language-python">def make_deco(x, y):
+    def deco(func):
+        # Do things with x and y.
+
+        def wrap():
+            # Do things with func.
+            pass
+
+        return wrap
+
+    return deco
+</code></pre>
+<p>and we have this form:</p>
+<pre><code class="language-python">@make_deco(x, y)
+def foo():
+    # Do things.
+    pass
+</code></pre>
+<p>The above one is equivalant to this one:</p>
+<pre><code class="language-python">def foo():
+    # Do things
+    pass
+
+foo = make_deco(x, y)(foo)
+</code></pre>
+<p>So the <code>make_deco(x, y)</code> basically returns a function, <code>deco(func)</code>, then this just becomes the using a decorator that does not take arguments.</p>
+<p>For multiple decorator applied, it's like this:</p>
+<pre><code class="language-python">@deco2
+@deco1
+def foo():
+    # Do things.
+    pass
+</code></pre>
+<p>The above form is equivalant to this form:</p>
+<pre><code class="language-python">def foo():
+    # Do things.
+    pass
+
+foo = deco2(deco1(foo))
+</code></pre>
+<p><a href="https://peps.python.org/pep-0318/#current-syntax">This explanation</a> is, in my opinion, the best one explaning how decorators work.  It just transforms intuitive decorator syntax, which is not very intuitive, to very simple function calls.</p>
+
+      </main>
+    </div>
+  </body>
+</html>
